@@ -90,16 +90,18 @@ public class CityManager extends JFrame implements ActionListener {
         fichier.setFileFilter(filter);
     }
 
-     void saveFile(List<Ville> villes,Path path){
+     void saveFile(List<Ville> villes ,Path path){
         try {
-            for (Ville v : villes)
-            {
-                String ligne = v.getId() + ":" + v.getNom() + ":" + v.getPopulation() + ":" + v.getRegion()+ "\n";
-                Files.write(path, ligne.getBytes(),
-                        StandardOpenOption.CREATE_NEW,
-                        StandardOpenOption.WRITE,
-                        StandardOpenOption.APPEND);
+            System.out.println(villes.size());
+            String ligne = "Id\tNom\tPopulation\tRégion\n";
+            for (int i = 0; i < villes.size(); i++) {
+
+                 ligne += villes.get(i).getId() + ":" + villes.get(i).getNom() + ":" +
+                        villes.get(i).getPopulation() + ":" + villes.get(i).getRegion()+ "\n";
             }
+            Files.write(path, ligne.getBytes(),
+                    StandardOpenOption.CREATE_NEW,
+                    StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
